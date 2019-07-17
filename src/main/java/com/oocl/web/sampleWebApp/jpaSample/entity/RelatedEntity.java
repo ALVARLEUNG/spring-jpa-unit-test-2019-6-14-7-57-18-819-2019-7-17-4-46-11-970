@@ -1,9 +1,10 @@
 package com.oocl.web.sampleWebApp.jpaSample.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class SingleEntity {
+public class RelatedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,8 +13,9 @@ public class SingleEntity {
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    @OneToOne
-    RelatedEntity relatedEntity;
+    @OneToOne(cascade = CascadeType.ALL)
+    @NotNull
+    private SingleEntity singleEntity;
 
 
     public Long getId() {
@@ -32,11 +34,11 @@ public class SingleEntity {
         this.name = name;
     }
 
-    public RelatedEntity getRelatedEntity() {
-        return relatedEntity;
+    public SingleEntity getSingleEntity() {
+        return singleEntity;
     }
 
-    public void setRelatedEntity(RelatedEntity relatedEntity) {
-        this.relatedEntity = relatedEntity;
+    public void setSingleEntity(SingleEntity singleEntity) {
+        this.singleEntity = singleEntity;
     }
 }
